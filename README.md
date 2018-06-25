@@ -1,17 +1,19 @@
 # Apple Airport hass devicetracker and Internet Connection Sensor (binary)
-Turn the Apple Airport Wireless Router to a homeassistant devicetracker.
+Turn the Apple Airport Wireless Router to a homeassistant device tracker, and an Internet Connection binary sensor.
 
-Tested on Apple Airport Timecapsule AC with the newest firmware.
+Tested on Apple Airport Timecapsule AC with the newest firmware (7.7.9).
 
 Working process:
 
 - Apple's wireless router send out syslogs containing important and useful information for HA (WAN connection events and wireless devices connection events).
 
-- The rsyslog service running on HA host collecting the syslog messages come from Apple Airport router.
+- The rsyslog service collecting the syslog messages come from Apple Airport router.
 
 - The messages are transfered to the python script (via omprog interface of rsyslog).
 
 - The python script parse the messages and triggers the states of the wireless devices (by mac) and the binary_sensor representting the Internet connection, via the API of homeassistant.
+
+rsyslog service could runs on any host inside the same network, the HA host is a good choice for most people.
 
 It's should also work with other routers that throw syslogs (maybe little modification is required).
 
