@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from requests import post
-headers = {'x-ha-access': 'noIbeaconwork', 'content-type': 'application/json'}
+headers = {'x-ha-access': 'http_password', 'content-type': 'application/json'}
 while True:
     try:
         str = input()
