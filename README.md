@@ -102,4 +102,6 @@ $ echo '<54> <133>Feb 11 22:32:00 timecapsuleu pppoe: Disconnected.' >/dev/udp/h
 Then check on the frontend of ha, the new binary_sensor named "Internet" will appear.
 
 # Notes:
-Because the wireless devices will disconnect from the AP and reconnect in very short time (less than 1 second) frequently, and some times the router itself will disconnect and reconnect the pppoe connection rapidly, if the states of the sensor and tracked devices been used in automations, a suitable timer should be involved to avoid un-necessary actions.
+Because the wireless devices will disconnect from the AP and reconnect in very short time (less than 1 second) frequently, and some times the router itself will disconnect and reconnect the pppoe connection rapidly, if the states of the sensor been used in automations, a suitable timer should be involved to avoid un-necessary actions.
+
+For the device_tracker，there already is a timer (consider_home) can leverage this problem. 
