@@ -19,35 +19,59 @@ It's should also work with other routers that throw syslogs (maybe little modifi
   
 2. Enable rsyslog server and it's configuration in /etc/rsyslog.conf:
 
+` 
      module(load="imudp")
+
      input(type="imudp" port="514" ruleset="apple_airport")
+     
      module(load="omprog")
+     
      ruleset(name="apple_airport"){
+     
        action( type="omprog"
+       
        binary="/home/homeassistant/apple_airport.py")
-       }
+       
+       }`
 
 3. Restart the rsyslog service:
-    $ sudo service rsyslog restart
-  or
-    $ sudo systemctl restart rsyslog
-  depending on the system.
+
+    `$ sudo service rsyslog restart`
+
+or
+
+    `$ sudo systemctl restart rsyslog`
+
+depending on the system.
 
 That's all.
+
 Below is just for confirming and testing.
 
 4. Confirm
+
     run:
-     $ sudo netstat -tulpn | grep rsyslog
-    the output should looks like this:
-     udp    0 0    0.0.0.0:514    0.0.0.0:*      551/rsyslogd 
-     udp6    0 0    :::514        :::*          551/rsyslogd
-    then run:
-     $ ps ax |grep apple
-    there should be the process of apple_airport.py 
-    15321 ?        S      0:00 /usr/bin/python3 /home/homeassistant/apple_airport.py
+
+`$ sudo netstat -tulpn | grep rsyslog`
+
+the output should looks like this:
+
+`udp    0 0    0.0.0.0:514    0.0.0.0:*      551/rsyslogd 
+
+udp6    0 0    :::514        :::*          551/rsyslogd`
+
+then run:
+
+`$ ps ax |grep apple`
+
+there should be the process of apple_airport.py 
+
+`15321 ?        S      0:00 /usr/bin/python3 /home/homeassistant/apple_airport.py`
 
 5. Make a simple test:
-   On another computer (unix like), send a message to the rsyslog service:
-    $ echo '<54> <133>Feb 11 22:32:00 timecapsuleu pppoe: Disconnected.' >/dev/udp/ha-host/514
-   Then check on the frontend of ha, the new binary_sensor named "Internet" will appear.
+
+On another computer (unix like), send a message to the rsyslog service:
+
+`$ echo '<54> <133>Feb 11 22:32:00 timecapsuleu pppoe: Disconnected.' >/dev/udp/ha-host/514`
+
+Then check on the frontend of ha, the new binary_sensor named "Internet" will appear.
