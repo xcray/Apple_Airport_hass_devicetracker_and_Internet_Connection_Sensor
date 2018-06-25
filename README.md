@@ -3,11 +3,19 @@ Turn the Apple Airport Wireless Router to a homeassistant devicetracker.
 
 Tested on Apple Airport Timecapsule AC with the newest firmware.
 
-Apple's wireless router can send out syslogs containing important and useful information for HA.
+Working process:
 
-These syslog messages can be used to track wireless devices and monitoring the connection of Internet (a binary_sensor)
+- Apple's wireless router send out syslogs containing important and useful information for HA (WAN connection events and wireless devices connection events).
 
-It's should also work with other routers that throw syslogs (maybe little modification is required)
+- The rsyslog service running on HA host collecting the syslog messages come from Apple Airport router.
+
+- The messages are transfered to the python script (via omprog interface of rsyslog).
+
+- The python script parse the messages and triggers the states of the wireless devices (by mac) and the binary_sensor representting the Internet connection, via the API of homeassistant.
+
+It's should also work with other routers that throw syslogs (maybe little modification is required).
+
+It's totally event-driven, sensitive, and no active scan required. 
 
 # Steps:
 
@@ -29,7 +37,7 @@ If either frontend or api is not enabled on HA, enable one of them.
 
 2. Enable rsyslog server and it's configuration in /etc/rsyslog.conf:
 
-` 
+``` 
 module(load="imudp")
 
 input(type="imudp" port="514" ruleset="apple_airport")
@@ -43,7 +51,7 @@ ruleset(name="apple_airport"){
        binary="/home/homeassistant/apple_airport.py")
 
        } 
-`
+```
 
 3. Restart the rsyslog service:
 
@@ -73,11 +81,11 @@ $ sudo netstat -tulpn | grep rsyslog
 
 the output should looks like this:
 
-`
+```
 udp    0 0    0.0.0.0:514    0.0.0.0:*      551/rsyslogd 
 
 udp6    0 0    :::514        :::*          551/rsyslogd
-`
+```
 
 then run:
 
