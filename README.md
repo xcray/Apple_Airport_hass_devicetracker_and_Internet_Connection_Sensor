@@ -118,3 +118,17 @@ Then check on the frontend of ha, the new binary_sensor named "Internet" will ap
 Because the wireless devices will disconnect from the AP and reconnect in very short time (less than 1 second) frequently, and some times the router itself will disconnect and reconnect the pppoe connection rapidly, if the states of the sensor been used in automations, a suitable timer should be involved to avoid un-necessary actions.
 
 For the device_tracker，there already is a timer (consider_home) can leverage this problem. 
+
+# Edit known_devices.yaml in the right way
+
+Time:
+
+After a pretty long time running, for example, 1~2 days, or even 1 week, just be sure that all your wireless devices had appeared on hass.
+
+Steps:
+
+Stop homeassistant.
+
+Then edit and save known_devices.yaml. Pay attention to the MAC addresses.
+
+Start homeassistant.
