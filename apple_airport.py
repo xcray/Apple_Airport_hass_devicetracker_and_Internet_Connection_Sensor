@@ -10,7 +10,7 @@ while True:
         postData = '{"state":"off","attributes": {"wan_ip":""}}'
         post('http://127.0.0.1:8123/api/states/binary_sensor.Internet',data=postData,headers=headers)
     elif 'pppoe: Connection established' in str:
-        wan_ip = str[str.find('->')+3:-1]
+        wan_ip = str[str.find('established')+12:str.find('->')-2]
         postData = '{"state":"on","attributes": {"wan_ip":"'+wan_ip+'"}}'
         post('http://127.0.0.1:8123/api/states/binary_sensor.Internet',data=postData,headers=headers)
     elif 'Disassociated with station' in str:
