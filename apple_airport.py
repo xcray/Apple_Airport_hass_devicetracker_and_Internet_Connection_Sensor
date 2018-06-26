@@ -19,5 +19,5 @@ while True:
         post('http://127.0.0.1:8123/api/services/device_tracker/see',data=postData,headers=headers)
     elif 'Installed unicast CCMP key for supplicant' in str:
         mac = str[-17:len(str)]
-        postData = '{"mac":"'+mac+'","source_type":"router","consider_home":"0"}'
+        postData = '{"mac":"'+mac+'","source_type":"router","consider_home":"99:00:00"}'
         post('http://127.0.0.1:8123/api/services/device_tracker/see',data=postData,headers=headers)
