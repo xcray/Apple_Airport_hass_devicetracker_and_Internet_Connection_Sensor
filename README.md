@@ -22,7 +22,10 @@ It's totally event-driven, sensitive, and no active scan required.
 # Steps:
 
 0. Save the python script on homeassistant host, for example, in the home path of homeassistant:
+
    /home/homeassistant
+
+Don't forget to replace the http password.
 
 If device_tracker is not enabled on HA, enable it.
 
