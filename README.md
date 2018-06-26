@@ -100,6 +100,8 @@ $ ps ax |grep apple
 
 there should be the process of apple_airport.py 
 
+(maybe you couldn't see the process right now, just jump to next step, receiving one message will invoke it)
+
 `
 15321 ?        S      0:00 /usr/bin/python3 /home/homeassistant/apple_airport.py
 `
@@ -111,6 +113,7 @@ On another computer (unix like), send a message to the rsyslog service:
 `
 $ echo '<54> <133>Feb 11 22:32:00 timecapsuleu pppoe: Disconnected.' >/dev/udp/ha-host/514
 `
+(the process of "apple_airport.py" will be invoked after one syslog message received on port 514)
 
 Then check on the frontend of ha, the new binary_sensor named "Internet" will appear.
 
