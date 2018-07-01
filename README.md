@@ -135,3 +135,17 @@ Stop homeassistant.
 Then edit and save known_devices.yaml. Pay attention to the MAC addresses.
 
 Start homeassistant.
+
+# about new_device_defaults
+if no other device_trackers configured, then there is no way to set new_device_defaults.
+
+in this case, put the custom_components/device_tracker/apple_airport.py under your config path (it's a dump plat_form, doing nothing), and put this in your configuration.yaml:
+
+```
+device_tracker:
+  - platform: apple_airport
+    interval_seconds: 1200
+    new_device_defaults:
+      track_new_devices: false
+      hide_if_away: true
+```
