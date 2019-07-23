@@ -3,6 +3,8 @@ Turn the Apple Airport Wireless Router to a homeassistant device tracker, and an
 
 Tested on Apple Airport Timecapsule AC with the newest firmware (7.7.9).
 
+## Not working on new verion of hass, since the auth of api had been changed.
+
 Working process:
 
 - Apple's wireless router send out syslogs containing important and useful information for HA (WAN connection events and wireless devices connection events).
