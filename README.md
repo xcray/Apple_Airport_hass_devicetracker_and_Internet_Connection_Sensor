@@ -1,9 +1,9 @@
 # Apple Airport hass devicetracker and Internet Connection Sensor (binary)
 Turn the Apple Airport Wireless Router to a homeassistant device tracker, and an Internet Connection binary sensor.
 
-Tested on Apple Airport Timecapsule AC with the newest firmware (7.7.9).
+Tested on Apple Airport Timecapsule AC with the newest firmware (7.9.1).
 
-## Not working on new verion of hass, since the auth of api had been changed.
+# With rsyslog server running.
 
 Working process:
 
@@ -21,7 +21,7 @@ It's should also work with other routers that throw syslogs (maybe little modifi
 
 It's totally event-driven, sensitive, and no active scan required. 
 
-# Steps:
+## Steps:
 
 0. Save the python script on homeassistant host, for example, in the home path of homeassistant:
 
@@ -107,15 +107,27 @@ there should be the process of apple_airport.py
 `
 15321 ?        S      0:00 /usr/bin/python3 /home/homeassistant/apple_airport.py
 `
+# Without rsyslog server, simplified!
+tested on Synology, with python 2.
 
-5. Make a simple test:
+use airconn.py instead, it's will bind to 514 port and handle the syslog messages by itself.
+
+so, the "log receiving" function of the same port must be disabled in the app "Log Center".
+## Steps:
+1. generate long live token on hass frontend, and put the token into the script __airconn.py__.
+
+2. setuid, since it will bind to the port lower than 1024.
+
+3. autostart
+
+# Make a simple test:
 
 On another computer (unix like), send a message to the rsyslog service:
 
 `
 $ echo '<54> <133>Feb 11 22:32:00 timecapsuleu pppoe: Disconnected.' >/dev/udp/ha-host/514
 `
-(the process of "apple_airport.py" will be invoked after one syslog message received on port 514)
+(the process of "apple_airport.py" or "airconn.py" will be invoked after one syslog message received on port 514)
 
 Then check on the frontend of ha, the new binary_sensor named "Internet" will appear.
 
